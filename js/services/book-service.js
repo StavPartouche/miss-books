@@ -450,7 +450,9 @@ const books =
 export const bookService = {
     getBooks,
     getById,
-    booksToStorage
+    booksToStorage,
+    addReview,
+    deleteReview
 }
 
 function getBooks() {
@@ -465,6 +467,25 @@ function getBooks() {
 function getById(id) {
     const book =  gBooks.find(book => book.id === id)
     return Promise.resolve(book)
+}
+
+function addReview(review, id){
+    review.id = utilService.makeId()
+    var idx = gBooks.findIndex(book => book.id === id);
+    if(!gBooks[idx].reviews){
+        gBooks[idx].reviews = []
+    }
+    gBooks[idx].reviews.push(review);
+    booksToStorage(gBooks)
+    return Promise.resolve(gBooks)
+}
+
+function deleteReview(reviewId, bookId){
+    var bookIdx = gBooks.findIndex(book => bookId === book.id)
+    var reviewIdx = gBooks[bookIdx].reviews.findIndex(review => review.id === reviewId)
+    gBooks[bookIdx].reviews.splice(reviewIdx, 1)
+    booksToStorage(gBooks)
+    return Promise.resolve(gBooks)
 }
 
 function booksToStorage(value){

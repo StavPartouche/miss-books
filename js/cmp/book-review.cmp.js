@@ -9,21 +9,16 @@ export default {
             <h5>Rate: {{review.rate}}</h5>
             <p>at: {{review.date}}</p>
             <p>{{review.text}}</p>
-            <button @click="deleteReview(review.id, book)">X</button>
+            <button @click="onDeleteReview(review.id, book.id)">X</button>
         </section>    
     `,
     methods:{
-        deleteReview(id, currBook){
-            var reviewIdx = currBook.reviews.findIndex(review => review.id === id)
-            currBook.reviews.splice(reviewIdx, 1)
-            bookService.getBooks()
-                .then(books => {
-                    var bookIdx = books.findIndex(book => currBook.id === book.id)
-                    books[bookIdx].reviews = currBook.reviews
-                    bookService.booksToStorage(books)
-                    eventBus.$emit('show-msg', 'The review was deleted')
-                    this.$router.push('/book')
-                })
+        onDeleteReview(reviewId, bookId){
+            bookService.deleteReview(reviewId, bookId)
+                .then(
+                    eventBus.$emit('show-msg', 'The review was deleted'),
+                     this.$router.push('/book')
+                )
         }
     }
 }

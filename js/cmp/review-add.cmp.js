@@ -5,7 +5,7 @@ import {eventBus} from '../services/event-bus-service.js'
 export default {
     props: ['book'],
     template:`
-            <form class="review-form" @submit.prevent="onSubmit(book.id)">
+            <form class="review-form" @submit.prevent="onAddReview(review, book.id)">
                 <input type="text" placeholder="Enter Name" v-model="review.name"/>
                 <div class="rate">
                     <p>Rate:</p>
@@ -33,20 +33,12 @@ export default {
         }
     },
     methods:{
-        onSubmit(bookId){
-            this.review.id = utilService.makeId()
-            bookService.getBooks()
-                .then(books => {
-                    var tempBooks = books
-                    var idx = tempBooks.findIndex(book => book.id === bookId);
-                    if(!tempBooks[idx].reviews){
-                        tempBooks[idx].reviews = []
-                    }
-                    tempBooks[idx].reviews.push(this.review);
-                    bookService.booksToStorage(tempBooks)
-                    eventBus.$emit('show-msg', 'Your book review was submited')
+        onAddReview(review, bookId){
+            bookService.addReview(review, bookId)
+                .then(
+                    eventBus.$emit('show-msg', 'Your book review was submited'),
                     this.$router.push('/book')
-                })
+                    )
         }
     }
 }
