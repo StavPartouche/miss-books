@@ -1,4 +1,5 @@
 import {utilService} from './util-service.js'
+import {googleService} from './google-service.js'
 
 const STORAGE_KEY = 'booksDB'
 
@@ -452,7 +453,9 @@ export const bookService = {
     getById,
     booksToStorage,
     addReview,
-    deleteReview
+    deleteReview,
+    logData,
+    addGoogleBook
 }
 
 function getBooks() {
@@ -490,4 +493,31 @@ function deleteReview(reviewId, bookId){
 
 function booksToStorage(value){
     utilService.storeToStorage(STORAGE_KEY, value)
+}
+
+function doesBookExist(googleBook){
+    return gBooks.some(book => book.id === googleBook.id)
+}
+function addGoogleBook(googleBook){
+    var isBookExist = doesBookExist(googleBook)
+    console.log(isBookExist);
+    if(isBookExist) return Promise.reject('This book is already saved')
+    googleBook.title = googleBook.volumeInfo.title
+    var year = googleBook.volumeInfo.publishedDate.split('-')
+    googleBook.publishedDate = +year[0]
+    googleBook.description = googleBook.volumeInfo.description
+    googleBook.pageCount = googleBook.volumeInfo.pageCount
+    googleBook.thumbnail = googleBook.volumeInfo.imageLinks.thumbnail
+    googleBook.listPrice = {}
+    googleBook.listPrice.amount = 200
+    googleBook.listPrice.currencyCode = 'ILS'
+    googleBook.isOnSale = false
+    gBooks.push(googleBook)
+    booksToStorage(gBooks)
+    return Promise.resolve(gBooks)
+}
+
+function logData(){
+    googleService.getGoogleData()
+        .then(res => console.log(res))
 }

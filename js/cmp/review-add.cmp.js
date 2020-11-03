@@ -1,6 +1,7 @@
-import {utilService} from '../services/util-service.js'
+// import {googleService} from '../services/google-service.js'
 import {bookService} from '../services/book-service.js'
 import {eventBus} from '../services/event-bus-service.js'
+
 
 export default {
     props: ['book'],
@@ -36,6 +37,7 @@ export default {
         onAddReview(review, bookId){
             bookService.addReview(review, bookId)
                 .then(
+                    bookService.logData(),
                     eventBus.$emit('show-msg', 'Your book review was submited'),
                     this.$router.push('/book')
                     )

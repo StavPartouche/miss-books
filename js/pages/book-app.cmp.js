@@ -2,10 +2,12 @@ import { bookService } from '../services/book-service.js'
 import bookList from '../cmp/book-list.cmp.js'
 import bookDetails from './book-details.cmp.js'
 import bookFilter from '../cmp/book-filter.cmp.js'
+import addBook from '../cmp/add-book.cmp.js'
 
 export default {
     template: `
         <section class="book-app container">
+            <add-book />
             <book-filter @filtered="setFilter"></book-filter>
             <book-list :books="booksToShow" @selected="selectBook"></book-list>
         </section>
@@ -13,7 +15,8 @@ export default {
     components:{
         bookDetails,
         bookFilter,
-        bookList
+        bookList,
+        addBook
     },
     data() {
         return {

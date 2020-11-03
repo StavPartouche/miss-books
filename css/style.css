@@ -129,6 +129,10 @@ body{
     padding: 10px 20px;
 }
 
+.results-list{
+    background-color: aqua;
+}
+
 
 @media (max-width: 930px){
     .container{
