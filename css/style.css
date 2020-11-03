@@ -1,0 +1,137 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(39, 39, 39);
+}
+
+.app-header{
+    background-color: rgb(255, 188, 64);
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    height: 50px;
+}
+
+.book-img{
+    max-width: 100px;
+}
+
+.book-app{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.books-container{
+    text-align: center;
+}
+
+.books-container h2{
+    color: rgb(255, 240, 182);
+}
+
+.book-list{
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+}
+
+.book-card{
+    border: 1px solid rgb(255, 188, 64);
+    width: 180px;
+    height: 270px;
+    text-align: center;
+    margin: 10px;
+    background-color: rgb(255, 205, 43);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.red {
+    color: red
+}
+
+.green{
+    color: green;
+}
+
+.book-details{
+   text-align: center;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+.details{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.details div{
+    width: 300px;
+}
+
+.book-details h2{
+    text-transform: uppercase;
+}
+
+.book-details h4{
+    margin-bottom: 10px;
+}
+
+.book-details img{
+    margin-top: 5px;
+    width: 150px;
+}
+
+.review-form{
+    padding: 10px;
+    background-color: beige;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 400px;
+}
+
+.review-form textarea{
+    width: 300px;
+    height: 200px;
+}
+
+.rate{
+    display: flex;
+    align-items: center;
+}
+
+.book-review{
+    text-align: start;
+    background-color: burlywood;
+    list-style: none;
+    width: 90%;
+}
+
+.user-msg{
+    position: absolute;
+    top: 0;
+    right: 20px;
+    background-color: lightblue;
+    padding: 10px 20px;
+}
+
+
+@media (max-width: 930px){
+    .container{
+        width: 90%;
+    }
+}
